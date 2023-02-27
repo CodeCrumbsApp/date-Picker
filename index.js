@@ -1,4 +1,53 @@
 ;(function (global) {
+	global.dateDropperSetup = {
+		languages: {
+			en: {
+				m: {
+					s: [
+						'Jan',
+						'Feb',
+						'Mar',
+						'Apr',
+						'May',
+						'June',
+						'July',
+						'Aug',
+						'Sept',
+						'Oct',
+						'Nov',
+						'Dec',
+					],
+					f: [
+						'January',
+						'February',
+						'March',
+						'April',
+						'May',
+						'June',
+						'July',
+						'August',
+						'September',
+						'October',
+						'November',
+						'December',
+					],
+				},
+				w: {
+					s: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+					f: [
+						'Sunday',
+						'Monday',
+						'Tuesday',
+						'Wednesday',
+						'Thursday',
+						'Friday',
+						'Saturday',
+					],
+				},
+			},
+		},
+	}
+
 	global.DatePicker = function ({
 		dateFieldSelector,
 		language = 'en',
@@ -36,54 +85,6 @@
 		},
 	}) {
 		// Date Dropper JS
-		var dateDropperSetup = {
-			languages: {
-				en: {
-					m: {
-						s: [
-							'Jan',
-							'Feb',
-							'Mar',
-							'Apr',
-							'May',
-							'June',
-							'July',
-							'Aug',
-							'Sept',
-							'Oct',
-							'Nov',
-							'Dec',
-						],
-						f: [
-							'January',
-							'February',
-							'March',
-							'April',
-							'May',
-							'June',
-							'July',
-							'August',
-							'September',
-							'October',
-							'November',
-							'December',
-						],
-					},
-					w: {
-						s: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-						f: [
-							'Sunday',
-							'Monday',
-							'Tuesday',
-							'Wednesday',
-							'Thursday',
-							'Friday',
-							'Saturday',
-						],
-					},
-				},
-			},
-		}
 		!(function () {
 			this.dateDropper = function () {
 				var e = dateDropper.prototype
@@ -458,7 +459,7 @@
 								(e.selected = new Date(p(e.date)))
 					}),
 					(d.lang = function (e) {
-						var d = dateDropperSetup.languages
+						var d = global.dateDropperSetup.languages
 						return d[e.options.lang] || d.en
 					}),
 					(d.output = function (e, t) {

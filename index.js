@@ -69,16 +69,15 @@
 		overlay,
 		onChange,
 		onRangeSet,
-		onDropdownOpen,
-		onDropdownExit,
+		onDatePickerOpen,
+		onDatePickerExit,
 		styles = {
 			backgroundColor: '#FFFFFF',
 			backgroundOverlay: 'rgba(0, 0, 0, .2)',
 			primaryTextColor: '#333333',
 			secondaryTextColor: '#FFFFFF',
 			tertiaryTextColor: '#FD4741',
-			accentBackgroundColor:
-				'linear-gradient(45deg, #e61e68 0%, #FD4741 100%)',
+			accentBackgroundColor: 'linear-gradient(45deg, #e61e68 0%, #FD4741 100%)',
 			borderRadius: '.35em',
 			dropShadow: '0 0 2.5em rgba(0, 0, 0, 0.1)',
 			dateRangeBackgroundColor: 'rgba(0, 0, 0, 0.05)',
@@ -89,9 +88,7 @@
 			this.dateDropper = function () {
 				var e = dateDropper.prototype
 				e.fetch = function () {
-					;(d.els = document.querySelectorAll(
-						d.options.selector
-					)),
+					;(d.els = document.querySelectorAll(d.options.selector)),
 						d.els.length &&
 							d.els.forEach(function (e, t) {
 								d.prepare(e)
@@ -101,9 +98,7 @@
 				function t(e, d) {
 					return [
 						31,
-						e % 4 == 0 && (e % 100 != 0 || e % 400 == 0)
-							? 29
-							: 28,
+						e % 4 == 0 && (e % 100 != 0 || e % 400 == 0) ? 29 : 28,
 						31,
 						30,
 						31,
@@ -131,8 +126,7 @@
 					if (!e) return !1
 					var d = []
 					return (
-						('string' == typeof e || e instanceof String) &&
-							(e = e.split(',')),
+						('string' == typeof e || e instanceof String) && (e = e.split(',')),
 						!!Array.isArray(e) &&
 							(e.forEach(function (e) {
 								d.push(a(new Date(e)))
@@ -141,12 +135,7 @@
 					)
 				}
 				function i(e, d) {
-					return (
-						!(!e || !d) &&
-						e.y == d.y &&
-						e.m == d.m &&
-						e.d == d.d
-					)
+					return !(!e || !d) && e.y == d.y && e.m == d.m && e.d == d.d
 				}
 				function l(e) {
 					return !!e && e.y + '/' + n(e.m) + '/' + n(e.d)
@@ -193,9 +182,7 @@
 					e.setAttribute('data-dd-opt-default-date', l(d))
 				}
 				function h(e, d) {
-					e &&
-						e instanceof HTMLInputElement &&
-						(e.value = d)
+					e && e instanceof HTMLInputElement && (e.value = d)
 				}
 				function y(e, d) {
 					return Math.round((d - e) / 864e5)
@@ -229,14 +216,9 @@
 				}
 				function D(e) {
 					return e
-						.replace(
-							/(?:^\w|[A-Z]|\b\w)/g,
-							function (e, d) {
-								return 0 === d
-									? e.toLowerCase()
-									: e.toUpperCase()
-							}
-						)
+						.replace(/(?:^\w|[A-Z]|\b\w)/g, function (e, d) {
+							return 0 === d ? e.toLowerCase() : e.toUpperCase()
+						})
 						.replace(/\s+/g, '')
 						.replace('-', '')
 				}
@@ -257,12 +239,10 @@
 					k(d.options, arguments[0]),
 					(d.inline = d.options.inline),
 					(d.prepare = function (e) {
-						if (e.classList.contains('dd__trigger'))
-							return !1
+						if (e.classList.contains('dd__trigger')) return !1
 						e.classList.add('dd__trigger'),
 							e instanceof HTMLInputElement &&
-								(e.setAttribute('readonly', !0),
-								e.setAttribute('type', 'text'))
+								(e.setAttribute('readonly', !0), e.setAttribute('type', 'text'))
 						var t = d.methods(e)
 						d.inline
 							? e.datedropper('show')
@@ -274,53 +254,39 @@
 					}),
 					(d.destroy = function (e) {
 						d.exit(e),
-							e.trigger.removeEventListener(
-								'click',
-								e.triggerFunc
-							),
+							e.trigger.removeEventListener('click', e.triggerFunc),
 							delete e.trigger.datedropper,
-							e.options.onDestroy &&
-								e.options.onDestroy(e.trigger)
+							e.options.onDestroy && e.options.onDestroy(e.trigger)
 					}),
 					(d.methods = function (e) {
 						var t = {}
 						return (
 							(t.trigger = e),
-							Object.defineProperty(
-								t.trigger,
-								'datedropper',
-								{
-									value: function (e, n) {
-										switch (e) {
-											case 'show':
-												d.open(t)
-												break
-											case 'hide':
-												d.exit(t)
-												break
-											case 'destroy':
-												d.destroy(t)
-												break
-											case 'set':
-												d.set(t, n)
-										}
-									},
-									configurable: !0,
-								}
-							),
+							Object.defineProperty(t.trigger, 'datedropper', {
+								value: function (e, n) {
+									switch (e) {
+										case 'show':
+											d.open(t)
+											break
+										case 'hide':
+											d.exit(t)
+											break
+										case 'destroy':
+											d.destroy(t)
+											break
+										case 'set':
+											d.set(t, n)
+									}
+								},
+								configurable: !0,
+							}),
 							t
 						)
 					}),
 					(d.set = function (e, t) {
 						Object.keys(t).forEach(function (d) {
-							var n = d.replace(
-								/[A-Z]/g,
-								(e) => '-' + e.toLowerCase()
-							)
-							e.trigger.setAttribute(
-								'data-dd-opt-' + n,
-								t[d]
-							)
+							var n = d.replace(/[A-Z]/g, (e) => '-' + e.toLowerCase())
+							e.trigger.setAttribute('data-dd-opt-' + n, t[d])
 						}),
 							e.dropdown && d.open(e)
 					}),
@@ -335,30 +301,14 @@
 						e.primaryButton &&
 							(d
 								? (x(e.primaryButton),
-								  e.primaryButton.setAttribute(
-										'disabled',
-										''
-								  ))
-								: e.primaryButton.removeAttribute(
-										'disabled'
-								  ))
+								  e.primaryButton.setAttribute('disabled', ''))
+								: e.primaryButton.removeAttribute('disabled'))
 					}),
 					(d.dataOptions = function (e) {
-						for (
-							var d = e.trigger.attributes,
-								t = d.length,
-								n = {};
-							t--;
-
-						) {
+						for (var d = e.trigger.attributes, t = d.length, n = {}; t--; ) {
 							var o = d[t]
-							if (
-								o.value &&
-								o.name.includes('data-dd-opt-')
-							) {
-								var a = D(
-										o.name.replace('data-dd-opt-', '')
-									),
+							if (o.value && o.name.includes('data-dd-opt-')) {
+								var a = D(o.name.replace('data-dd-opt-', '')),
 									r = o.value
 								switch (r) {
 									case 'true':
@@ -378,46 +328,28 @@
 							((t = k(t, d.dataOptions(e))),
 							['maxYear', 'minYear'].forEach(function (e) {
 								t[e] =
-									t[e] ||
-									new Date().getFullYear() +
-										('maxYear' == e ? 50 : -50)
+									t[e] || new Date().getFullYear() + ('maxYear' == e ? 50 : -50)
 							}),
 							['maxDate', 'minDate'].forEach(function (e) {
-								t[e] =
-									'today' == t[e] ? p(new Date()) : t[e]
+								t[e] = 'today' == t[e] ? p(new Date()) : t[e]
 							}),
-							(t.defaultDate =
-								u(t.defaultDate) || new Date()),
-							(t.range =
-								t.range ||
-								Boolean(t.rangeStart || t.rangeEnd)),
+							(t.defaultDate = u(t.defaultDate) || new Date()),
+							(t.range = t.range || Boolean(t.rangeStart || t.rangeEnd)),
 							(t.expandedOnly = t.expandedOnly || t.range),
-							(t.expandedDefault =
-								t.expandedDefault || t.expandedOnly),
+							(t.expandedDefault = t.expandedDefault || t.expandedOnly),
 							(t.expandable =
-								t.expandable ||
-								t.expandedDefault ||
-								t.doubleView),
-							['onlyMonth', 'onlyYear'].includes(
-								t.preset
-							) &&
+								t.expandable || t.expandedDefault || t.doubleView),
+							['onlyMonth', 'onlyYear'].includes(t.preset) &&
 								((t.range = !1),
 								(t.defaultBehavior = !1),
 								(t.expandable = !1),
 								(t.customClass =
-									(t.customClass || '') +
-									' dd-preset-' +
-									t.preset)),
+									(t.customClass || '') + ' dd-preset-' + t.preset)),
 							t.preset)
 						) {
 							case 'onlyMonth':
 								;(t.blocks = ['m']),
-									(t.format = [
-										'm',
-										'mm',
-										'M',
-										'MM',
-									].includes(t.format)
+									(t.format = ['m', 'mm', 'M', 'MM'].includes(t.format)
 										? t.format
 										: 'm')
 								break
@@ -446,8 +378,7 @@
 								e.options.rangeEnd &&
 								d.valid(e, u(e.options.rangeStart)) &&
 								d.valid(e, u(e.options.rangeEnd)) &&
-								u(e.options.rangeEnd) >=
-									u(e.options.rangeStart) &&
+								u(e.options.rangeEnd) >= u(e.options.rangeStart) &&
 								((e.options.range = !0),
 								(e.range = {
 									a: g(e.options.rangeStart),
@@ -455,16 +386,14 @@
 								}),
 								(e.date = s(e.range.a)),
 								(e.selected = new Date(p(e.date)))),
-							e.options.range ||
-								(e.selected = new Date(p(e.date)))
+							e.options.range || (e.selected = new Date(p(e.date)))
 					}),
 					(d.lang = function (e) {
 						var d = global.dateDropperSetup.languages
 						return d[e.options.lang] || d.en
 					}),
 					(d.output = function (e, t) {
-						var r =
-								(t = t || {}).input || e.selected || e.date,
+						var r = (t = t || {}).input || e.selected || e.date,
 							i = r.getFullYear(),
 							l = r.getMonth() + 1,
 							s = r.getDate(),
@@ -504,17 +433,14 @@
 					(d.offset = function (e) {
 						var t,
 							n,
-							o = document.querySelectorAll(
-								d.options.selector
-							),
+							o = document.querySelectorAll(d.options.selector),
 							a = e.trigger.getBoundingClientRect(),
 							r = e.dropdown.getBoundingClientRect(),
 							i = r.width / 2,
 							l = document.documentElement.scrollTop,
 							s = a.top + l
 						;(t =
-							s + a.height + r.height + 16 <
-							l + window.innerHeight
+							s + a.height + r.height + 16 < l + window.innerHeight
 								? s + a.height + 16
 								: l + window.innerHeight - 16 - r.height),
 							(e.dropdown.style.top = t + 'px')
@@ -571,21 +497,17 @@
 							e.dropdown.appendChild(n)
 					}),
 					(d.toggleView = function (e) {
-						e.options.expandable &&
-							((e.expanded = !e.expanded), d.open(e))
+						e.options.expandable && ((e.expanded = !e.expanded), d.open(e))
 					}),
 					(d.calendarHeader = function (e) {
 						for (
-							var t = d.lang(e),
-								n = w('div', { class: 'dd__header' }),
-								o = 0;
+							var t = d.lang(e), n = w('div', { class: 'dd__header' }), o = 0;
 							o <= 6;
 							o++
 						) {
 							var a = o,
 								r = w('div', { class: 'dd__item' })
-							e.options.startFromMonday &&
-								(a = a + 1 == 7 ? 0 : a + 1),
+							e.options.startFromMonday && (a = a + 1 == 7 ? 0 : a + 1),
 								(r.innerHTML = t.w.s[a]),
 								n.appendChild(r)
 						}
@@ -595,12 +517,8 @@
 						var n = !0,
 							o = y(d, t)
 						return (
-							n &&
-								e.options.minRange &&
-								(n = o >= e.options.minRange),
-							n &&
-								e.options.maxRange &&
-								(n = o <= e.options.maxRange),
+							n && e.options.minRange && (n = o >= e.options.minRange),
+							n && e.options.maxRange && (n = o <= e.options.maxRange),
 							n
 						)
 					}),
@@ -619,20 +537,15 @@
 								(e.range.a = n),
 								(e.selecting = !0),
 								d.setDate(e, { d: n.d, m: n.m, y: n.y })
-						e.options.onRangeSet &&
-							e.options.onRangeSet(d.prepareOutput(e))
+						e.options.onRangeSet && e.options.onRangeSet(d.prepareOutput(e))
 					}),
 					(d.calendarDay = function (e, t) {
 						var n = s(t.date),
 							o = w('div', {
-								html:
-									'<div class="dd-value">' +
-									t.date.d +
-									'</div>',
+								html: '<div class="dd-value">' + t.date.d + '</div>',
 								class: 'dd__item ' + (t.class || ''),
 							})
-						d.weekend(e, n.getDay()) &&
-							o.classList.add('dd-weekend')
+						d.weekend(e, n.getDay()) && o.classList.add('dd-weekend')
 						var r = i(c(new Date()), t.date),
 							l = i(c(e.selected), t.date)
 						if (
@@ -654,9 +567,7 @@
 								var p = a(s(e.range.a)),
 									u = a(s(e.range.b)),
 									g = a(n)
-								g > p &&
-									g < u &&
-									o.classList.add('dd-point')
+								g > p && g < u && o.classList.add('dd-point')
 							}
 						} else l && o.classList.add('dd-selected')
 						if (
@@ -677,25 +588,17 @@
 										d.change(e, !0)
 								}),
 								e.options.range &&
-									(o.addEventListener(
-										'mouseenter',
-										function () {
-											d.settingRange(e, m),
-												e.dropdown.classList.add(
-													'dd-selecting'
-												),
-												o.classList.add('dd-selecting')
-										}
-									),
-									o.addEventListener(
-										'mouseleave',
-										function () {
-											v(e.dropdown, 'dd-selecting'),
-												v(e.dropdown, 'dd-starting'),
-												v(e.dropdown, 'dd-perEnd'),
-												v(e.dropdown, 'dd-perStart')
-										}
-									))
+									(o.addEventListener('mouseenter', function () {
+										d.settingRange(e, m),
+											e.dropdown.classList.add('dd-selecting'),
+											o.classList.add('dd-selecting')
+									}),
+									o.addEventListener('mouseleave', function () {
+										v(e.dropdown, 'dd-selecting'),
+											v(e.dropdown, 'dd-starting'),
+											v(e.dropdown, 'dd-perEnd'),
+											v(e.dropdown, 'dd-perStart')
+									}))
 						} else o.classList.add('dd-disabled')
 						return o
 					}),
@@ -704,17 +607,10 @@
 							node: d.item,
 							customLabel: function (e) {
 								if (
-									(d.item.setAttribute(
-										'data-dd-tooltip',
-										e.label
-									),
-									e.color)
+									(d.item.setAttribute('data-dd-tooltip', e.label), e.color)
 								) {
 									var t = w('div', { class: 'dd-color' })
-									t.setAttribute(
-										'style',
-										'background-color:' + e.color
-									)
+									t.setAttribute('style', 'background-color:' + e.color)
 								}
 								d.item.appendChild(t)
 							},
@@ -729,24 +625,17 @@
 							s(e.range.a) < s(t.date)
 						) {
 							var n =
-								t.item.parentNode.querySelector(
-									'.dd__item.dd-selected'
-								) ||
+								t.item.parentNode.querySelector('.dd__item.dd-selected') ||
 								t.item.parentNode.querySelector(
 									'.dd__body .dd__item:first-of-type'
 								)
 							if (d.isDoubleView(e)) {
-								var o =
-									t.item.parentNode.parentNode
-										.previousSibling
+								var o = t.item.parentNode.parentNode.previousSibling
 								if (o)
-									if (
-										o.querySelector('.dd__item.dd-selected')
-									)
+									if (o.querySelector('.dd__item.dd-selected'))
 										o.classList.add('dd-perEnd')
 									else
-										s(t.date).getMonth() !=
-											s(e.range.a).getMonth() &&
+										s(t.date).getMonth() != s(e.range.a).getMonth() &&
 											o.classList.add('dd-perStart')
 							}
 							n.classList.add('dd-starting')
@@ -762,9 +651,7 @@
 						var s = new Date(i)
 						s.setMonth(s.getMonth() + 1)
 						var c = 42,
-							p =
-								l.getDay() +
-								(e.options.startFromMonday ? -1 : 0)
+							p = l.getDay() + (e.options.startFromMonday ? -1 : 0)
 						if (6 != p)
 							for (var u = p; u >= 0; u--)
 								o.appendChild(
@@ -808,45 +695,34 @@
 						)
 					}),
 					(d.calendar = function (e) {
-						var t =
-							e.dropdown.querySelector('.dd__calendar')
+						var t = e.dropdown.querySelector('.dd__calendar')
 						if (!t) return !1
 						;(t.innerHTML = ''), (e.CSCHEMA = {})
 						var n = c(e.date)
 						if (
-							(t.appendChild(
-								d.createCalendar(e, { date: n })
-							),
+							(t.appendChild(d.createCalendar(e, { date: n })),
 							d.isDoubleView(e))
 						) {
 							var o = s(n)
 							o.setMonth(o.getMonth() + 1),
 								(o = c(o)),
-								t.appendChild(
-									d.createCalendar(e, { date: o })
-								)
+								t.appendChild(d.createCalendar(e, { date: o }))
 						}
 					}),
 					(d.prepareOutput = function (e) {
 						return e.options.range
 							? {
 									a: d.output(e, {
-										input: e.range
-											? s(e.range.a)
-											: e.selected,
+										input: e.range ? s(e.range.a) : e.selected,
 									}),
 									b: d.output(e, {
-										input: e.range
-											? s(e.range.b || e.range.a)
-											: e.selected,
+										input: e.range ? s(e.range.b || e.range.a) : e.selected,
 									}),
 							  }
 							: d.output(e)
 					}),
 					(d.save = function (e) {
-						e.options.range
-							? d.saveValues(e)
-							: d.saveValue(e),
+						e.options.range ? d.saveValues(e) : d.saveValue(e),
 							e.options.onChange &&
 								e.options.onChange({
 									trigger: e.trigger,
@@ -857,22 +733,18 @@
 					(d.checkoutDay = function (e, d) {
 						return (
 							e.options.checkout &&
-								((d = s(d)).setDate(d.getDate() + 1),
-								(d = c(d))),
+								((d = s(d)).setDate(d.getDate() + 1), (d = c(d))),
 							d
 						)
 					}),
 					(d.saveValues = function (e) {
 						e.range &&
 							['a', 'b'].forEach(function (t, n) {
-								var o =
-									e.range[t] || d.checkoutDay(e, e.range.a)
+								var o = e.range[t] || d.checkoutDay(e, e.range.a)
 								if (
 									o &&
 									(d.els.forEach(function (e) {
-										var d =
-											'data-dd-opt-range-' +
-											('a' == t ? 'start' : 'end')
+										var d = 'data-dd-opt-range-' + ('a' == t ? 'start' : 'end')
 										e.setAttribute(d, l(o))
 									}),
 									2 == d.els.length && d.els[n])
@@ -887,22 +759,14 @@
 						b(e.trigger, t),
 							h(e.trigger, t.string),
 							e.options.changeValueTo &&
-								h(
-									document.querySelector(
-										e.options.changeValueTo
-									),
-									t.string
-								)
+								h(document.querySelector(e.options.changeValueTo), t.string)
 					}),
 					(d.change = function (e, t) {
 						e.dropdown &&
 							(d.fillBlocks(e, { input: e.date }),
-							e.options.expandable &&
-								e.expanded &&
-								d.calendar(e)),
+							e.options.expandable && e.expanded && d.calendar(e)),
 							d.valid(e)
-								? (d.locked(e, !1),
-								  e.options.autoFill && d.save(e))
+								? (d.locked(e, !1), e.options.autoFill && d.save(e))
 								: d.locked(e, !0),
 							t &&
 								e.expanded &&
@@ -914,22 +778,13 @@
 						var t = !0,
 							n = e.options.enabledDays,
 							o = e.options.disabledDays
-						t &&
-							!n &&
-							o &&
-							(t = !m({ date: d, arr: r(o) })),
-							t &&
-								!o &&
-								n &&
-								(t = m({ date: d, arr: r(n) }))
+						t && !n && o && (t = !m({ date: d, arr: r(o) })),
+							t && !o && n && (t = m({ date: d, arr: r(n) }))
 						var i = e.options.maxDate,
 							l = e.options.minDate
-						t && l && (t = a(d) >= a(l)),
-							t && i && (t = a(d) <= a(i))
+						t && l && (t = a(d) >= a(l)), t && i && (t = a(d) <= a(i))
 						var s = e.options.disabledWeekDays
-						return (
-							t && s && (t = !s.includes(d.getDay())), t
-						)
+						return t && s && (t = !s.includes(d.getDay())), t
 					}),
 					(d.loopSet = function (e, d) {
 						var t = !e.options.loopAll
@@ -952,18 +807,13 @@
 							case 'y':
 								a =
 									d.loopSet(e, 'y') &&
-									r.y ==
-										(o
-											? e.options.maxYear
-											: e.options.minYear)
+									r.y == (o ? e.options.maxYear : e.options.minYear)
 								break
 							case 'm':
 								a = d.loopSet(e, 'm') && r.m == (o ? 12 : 1)
 								break
 							case 'd':
-								a =
-									d.loopSet(e, 'd') &&
-									r.d == (o ? t(r.y, r.m) : 1)
+								a = d.loopSet(e, 'd') && r.d == (o ? t(r.y, r.m) : 1)
 						}
 						return a
 					}),
@@ -982,25 +832,16 @@
 								o.setDate(o.getDate() + a)
 						}
 						;(o = d.fixDate(e, { input: o })),
-							e.expanded ||
-								(e.selected = new Date(p(e.date))),
+							e.expanded || (e.selected = new Date(p(e.date))),
 							d.change(e, !0)
 					}),
 					(d.isDoubleView = function (e) {
-						return e.options.doubleView &&
-							window.innerWidth > 768
-							? (e.dropdown.classList.add('dd-doubleView'),
-							  !0)
-							: (e.dropdown.classList.remove(
-									'dd-doubleView'
-							  ),
-							  !1)
+						return e.options.doubleView && window.innerWidth > 768
+							? (e.dropdown.classList.add('dd-doubleView'), !0)
+							: (e.dropdown.classList.remove('dd-doubleView'), !1)
 					}),
 					(d.weekend = function (e, d) {
-						return (
-							e.options.highlightWeekend &&
-							[0, 6].includes(d)
-						)
+						return e.options.highlightWeekend && [0, 6].includes(d)
 					}),
 					(d.fillBlocks = function (e) {
 						var t = d.output(e, { input: e.date }),
@@ -1008,10 +849,7 @@
 						if (e.expanded && d.isDoubleView(e)) {
 							var o = new Date(p(e.date))
 							o.setMonth(o.getMonth() + 1),
-								(n =
-									n +
-									' - ' +
-									(o = d.output(e, { input: o })).M)
+								(n = n + ' - ' + (o = d.output(e, { input: o })).M)
 						}
 						var a = {
 							y: '<div>' + t.y + '</div>',
@@ -1072,10 +910,7 @@
 							t.dialog.appendChild(o)
 						}
 						for (var a = t.min; a <= t.max; a++)
-							if (
-								!t.multiple ||
-								(t.multiple && a % t.multiple == 0)
-							) {
+							if (!t.multiple || (t.multiple && a % t.multiple == 0)) {
 								var r = d.yearDialogItem(e, {
 									dialog: t.dialog,
 									value: a,
@@ -1121,14 +956,9 @@
 					(d.setDate = function (e, d, t) {
 						var n = c(e.selected || e.date)
 						;(e.selected = new Date(
-							(d.y || n.y) +
-								'/' +
-								(d.m || n.m) +
-								'/' +
-								(d.d || n.d)
+							(d.y || n.y) + '/' + (d.m || n.m) + '/' + (d.d || n.d)
 						)),
-							(!t && e.expanded) ||
-								(e.date = new Date(p(e.selected)))
+							(!t && e.expanded) || (e.date = new Date(p(e.selected)))
 					}),
 					(d.dialogItem = function (e, d) {
 						var t = w('div', {
@@ -1136,8 +966,7 @@
 							html: d.html,
 						})
 						return (
-							d.onClick &&
-								t.addEventListener('click', d.onClick),
+							d.onClick && t.addEventListener('click', d.onClick),
 							setTimeout(function () {
 								t.classList.add('dd-shown')
 							}, d.timeout || 0),
@@ -1165,9 +994,7 @@
 								class:
 									'dd__dropdown dd-hidden ' +
 									(e.options.customClass || '') +
-									(e.options.showArrowsOnHover
-										? ' dd-arw-hover'
-										: '') +
+									(e.options.showArrowsOnHover ? ' dd-arw-hover' : '') +
 									(d.inline ? ' dd-inline' : ''),
 								id: 'datedropper',
 							})),
@@ -1187,21 +1014,16 @@
 									class: 'dd__primaryButton',
 									html: d.svg('checkmark'),
 								})),
-								e.primaryButton.addEventListener(
-									'click',
-									function () {
-										d.save(e), d.exit(e)
-									}
-								),
+								e.primaryButton.addEventListener('click', function () {
+									d.save(e), d.exit(e)
+								}),
 								t.appendChild(e.primaryButton)
 						}
 						if (e.options.expandable) {
 							if (!e.options.expandedOnly && !d.inline) {
 								var n = w('div', {
 									class: 'dd__expandButton',
-									html: e.expanded
-										? d.svg('reduce')
-										: d.svg('expand'),
+									html: e.expanded ? d.svg('reduce') : d.svg('expand'),
 								})
 								n.addEventListener('click', function () {
 									d.toggleView(e)
@@ -1210,16 +1032,12 @@
 							}
 							if (
 								((e.expanded =
-									!(
-										void 0 !== e.expanded ||
-										!e.options.expandedDefault
-									) || e.expanded),
+									!(void 0 !== e.expanded || !e.options.expandedDefault) ||
+									e.expanded),
 								e.expanded)
 							) {
-								e.dropdown.classList.add('dd-expanded'),
-									d.isDoubleView(e)
-								var o =
-									e.dropdown.querySelector('[data-key=d]')
+								e.dropdown.classList.add('dd-expanded'), d.isDoubleView(e)
+								var o = e.dropdown.querySelector('[data-key=d]')
 								if (o) {
 									var a = w('div', {
 										class: 'dd__calendar',
@@ -1229,19 +1047,14 @@
 							}
 						}
 						d.inline
-							? ((e.trigger.innerHTML = ''),
-							  e.trigger.appendChild(e.dropdown))
+							? ((e.trigger.innerHTML = ''), e.trigger.appendChild(e.dropdown))
 							: (e.trigger.classList.add('dd-focused'),
 							  document.body.appendChild(e.dropdown)),
 							(e.onResize = function (t) {
 								if (
-									(d.inline || d.offset(e),
-									e.expanded && e.options.doubleView)
+									(d.inline || d.offset(e), e.expanded && e.options.doubleView)
 								) {
-									var n =
-										e.dropdown.classList.contains(
-											'dd-doubleView'
-										)
+									var n = e.dropdown.classList.contains('dd-doubleView')
 									;((window.innerWidth < 768 && n) ||
 										(window.innerWidth > 768 && !n)) &&
 										e.trigger.datedropper('show')
@@ -1249,24 +1062,18 @@
 							}),
 							window.addEventListener('resize', e.onResize),
 							d.inline
-								? (e.onResize(),
-								  e.dropdown.classList.add('dd-shown'))
+								? (e.onResize(), e.dropdown.classList.add('dd-shown'))
 								: ((e.onBlur = function (t) {
-										;(t = t || window.event).target ==
-											e.trigger ||
+										;(t = t || window.event).target == e.trigger ||
 											t.target == e.dropdown ||
 											e.dropdown.contains(t.target) ||
 											d.exit(e)
 								  }),
-								  document.addEventListener(
-										'mousedown',
-										e.onBlur
-								  ),
+								  document.addEventListener('mousedown', e.onBlur),
 								  setTimeout(function () {
 										e.onResize(),
 											e.dropdown.classList.add('dd-shown'),
-											e.overlay &&
-												e.overlay.classList.add('dd-shown'),
+											e.overlay && e.overlay.classList.add('dd-shown'),
 											e.options.onDropdownOpen &&
 												e.options.onDropdownOpen({
 													trigger: e.trigger,
@@ -1281,10 +1088,8 @@
 							{
 								arrowLeft: '<path d="M16 21l-9-9 9-9"/>',
 								arrowRight: '<path d="M7 21l9-9-9-9"/>',
-								checkmark:
-									'<path d="M2.998 11.049l6.965 6.942 11.035-11"/>',
-								close:
-									'<path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/>',
+								checkmark: '<path d="M2.998 11.049l6.965 6.942 11.035-11"/>',
+								close: '<path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/>',
 								expand:
 									'<g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"><path stroke-linecap="square" d="M19 5l-4.643 4.643"/><path d="M12 4h8v8"/><path stroke-linecap="square" d="M5 19l4.643-4.643"/><path d="M12 20H4v-8"/></g>',
 								reduce:
@@ -1304,14 +1109,8 @@
 									dropdown: e.dropdown,
 									output: d.prepareOutput(e),
 								}),
-							document.removeEventListener(
-								'mousedown',
-								e.onBlur
-							),
-							window.removeEventListener(
-								'resize',
-								e.onResize
-							),
+							document.removeEventListener('mousedown', e.onBlur),
+							window.removeEventListener('resize', e.onResize),
 							e.trigger.classList.remove('dd-focused'))
 					}),
 					e.fetch()
@@ -1347,8 +1146,8 @@
 			overlay: overlay,
 			onChange: onChange,
 			onRangeSet: onRangeSet,
-			onDropdownOpen: onDropdownOpen,
-			onDropdownExit: onDropdownExit,
+			onDropdownOpen: onDatePickerOpen,
+			onDropdownExit: onDatePickerExit,
 		})
 
 		document.documentElement.style.setProperty(
@@ -1379,10 +1178,7 @@
 			'--dd-radius',
 			styles.borderRadius
 		)
-		document.documentElement.style.setProperty(
-			'--dd-shadow',
-			styles.dropShadow
-		)
+		document.documentElement.style.setProperty('--dd-shadow', styles.dropShadow)
 		document.documentElement.style.setProperty(
 			'--dd-range',
 			styles.dateRangeBackgroundColor

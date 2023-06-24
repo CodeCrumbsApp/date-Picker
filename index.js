@@ -1,3 +1,5 @@
+/** @format */
+
 ;(function (global) {
 	global.dateDropperSetup = {
 		languages: {
@@ -66,6 +68,7 @@
 		maxRange,
 		setDateForThisSelector,
 		showArrowsOnHover = true,
+		preset,
 		overlay,
 		onChange,
 		onRangeSet,
@@ -627,7 +630,7 @@
 							var n =
 								t.item.parentNode.querySelector('.dd__item.dd-selected') ||
 								t.item.parentNode.querySelector(
-									'.dd__body .dd__item:first-of-type'
+									'.dd__body .dd__item:first-of-type',
 								)
 							if (d.isDoubleView(e)) {
 								var o = t.item.parentNode.parentNode.previousSibling
@@ -662,7 +665,7 @@
 											m: l.getMonth() + 1,
 											y: l.getFullYear(),
 										},
-									})
+									}),
 								),
 									c--
 						for (u = 1; u <= r; u++)
@@ -670,7 +673,7 @@
 								d.calendarDay(e, {
 									class: 'dd-i',
 									date: { d: u, m: a.m, y: a.y },
-								})
+								}),
 							),
 								c--
 						for (u = 1; u <= c; u++)
@@ -682,7 +685,7 @@
 										m: s.getMonth() + 1,
 										y: s.getFullYear(),
 									},
-								})
+								}),
 							)
 						return o
 					}),
@@ -865,7 +868,7 @@
 						}
 						e.options.blocks.forEach(function (d) {
 							e.dropdown.querySelector(
-								'.dd__block[data-key="' + d + '"] .dd__view'
+								'.dd__block[data-key="' + d + '"] .dd__view',
 							).innerHTML = a[d]
 						})
 					}),
@@ -878,7 +881,7 @@
 											dialog: t,
 											value: n,
 											timeout: 50 * n,
-										})
+										}),
 									)
 							},
 						})
@@ -956,7 +959,7 @@
 					(d.setDate = function (e, d, t) {
 						var n = c(e.selected || e.date)
 						;(e.selected = new Date(
-							(d.y || n.y) + '/' + (d.m || n.m) + '/' + (d.d || n.d)
+							(d.y || n.y) + '/' + (d.m || n.m) + '/' + (d.d || n.d),
 						)),
 							(!t && e.expanded) || (e.date = new Date(p(e.selected)))
 					}),
@@ -1143,6 +1146,7 @@
 			maxRange: maxRange,
 			changeValueTo: setDateForThisSelector,
 			showArrowsOnHover: showArrowsOnHover,
+			preset: preset,
 			overlay: overlay,
 			onChange: onChange,
 			onRangeSet: onRangeSet,
@@ -1152,36 +1156,36 @@
 
 		document.documentElement.style.setProperty(
 			'--dd-background',
-			styles.backgroundColor
+			styles.backgroundColor,
 		)
 		document.documentElement.style.setProperty(
 			'--dd-overlay',
-			styles.backgroundOverlay
+			styles.backgroundOverlay,
 		)
 		document.documentElement.style.setProperty(
 			'--dd-text1',
-			styles.primaryTextColor
+			styles.primaryTextColor,
 		)
 		document.documentElement.style.setProperty(
 			'--dd-text2',
-			styles.secondaryTextColor
+			styles.secondaryTextColor,
 		)
 		document.documentElement.style.setProperty(
 			'--dd-primary',
-			styles.tertiaryTextColor
+			styles.tertiaryTextColor,
 		)
 		document.documentElement.style.setProperty(
 			'--dd-gradient',
-			styles.accentBackgroundColor
+			styles.accentBackgroundColor,
 		)
 		document.documentElement.style.setProperty(
 			'--dd-radius',
-			styles.borderRadius
+			styles.borderRadius,
 		)
 		document.documentElement.style.setProperty('--dd-shadow', styles.dropShadow)
 		document.documentElement.style.setProperty(
 			'--dd-range',
-			styles.dateRangeBackgroundColor
+			styles.dateRangeBackgroundColor,
 		)
 	}
 })((globalThis.CodeCrumbs = globalThis.CodeCrumbs || {}))

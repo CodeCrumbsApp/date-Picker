@@ -53,6 +53,7 @@
 	global.DatePicker = function ({
 		dateFieldSelector,
 		language = 'en',
+		autoFill = true,
 		isExpandable = true,
 		onlyShowAsExpanded = false,
 		format = 'd-m-y',
@@ -1131,6 +1132,7 @@
 		new dateDropper({
 			selector: dateFieldSelector,
 			lang: language,
+			autoFill: autoFill,
 			expandable: isExpandable,
 			expandedOnly: onlyShowAsExpanded,
 			format: format,
